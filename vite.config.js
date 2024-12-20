@@ -9,6 +9,6 @@ export default defineConfig({
     },
     base: '/TestApp/', // nome del repository GitHub
     build: {
-        outDir: 'buld'
+        outDir: 'build'
     }
 })
