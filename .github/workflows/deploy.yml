@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # Sostituisci con il ramo che vuoi monitorare per il deploy (ad esempio, 'master' o 'main')
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout del codice
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Impostazione di Node.js (assicurati di usare la versione corretta)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'  # Puoi usare una versione diversa, node -v per verificare quella in uso
+
+      # Installazione delle dipendenze
+      - name: Install dependencies
+        run: npm install
+
+      # Costruzione del progetto
+      - name: Build project
+        run: npm run build
+
+      # Deploy su GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  
+        with:
+          # branch: gh-pages  # Ramo su cui fare il deploy (tipicamente 'gh-pages')
+          # folder: build     # Cartella di output del build (per React è solitamente 'build')
+        #env:
+         # Usa il token di GitHub per autenticarsi
+            github_token: ${{ secrets.GITHUB_TOKEN }} 
+            publish_dir: ./build
