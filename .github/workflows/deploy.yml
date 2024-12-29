@@ -12,13 +12,13 @@ jobs:
     steps:
       # Checkout del codice
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # versione dell'azione actions/checkout
 
-      # Impostazione di Node.js (assicurati di usare la versione corretta)
+      # Impostazione di Node.js (attenzione alla versione)
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3 # Questa è la versione dell'azione di GitHub Action (V3)
         with:
-          node-version: '22'  # Puoi usare una versione diversa, node -v per verificare quella in uso
+          node-version: '22'  # Si può usare una versione diversa, node -v per verificare quella in uso
 
       # Installazione delle dipendenze
       - name: Install dependencies
@@ -30,11 +30,10 @@ jobs:
 
       # Deploy su GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3  
+        uses: JamesIves/github-pages-deploy-action@v4.4.2  # peaceiris/actions-gh-pages@v3 
         with:
-          # branch: gh-pages  # Ramo su cui fare il deploy (tipicamente 'gh-pages')
-          # folder: build     # Cartella di output del build (per React è solitamente 'build')
+          folder: build     # Cartella di output del build (per React è solitamente 'build')
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
         #env:
-         # Usa il token di GitHub per autenticarsi
-            github_token: ${{ secrets.GITHUB_TOKEN }} 
-            publish_dir: ./build
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa il token di GitHub per autenticarsi
+        #  publish_dir: ./build
